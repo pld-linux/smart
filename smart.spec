@@ -10,8 +10,8 @@ Source0:	http://labix.org/download/smart/%{name}-%{version}.tar.bz2
 Source1:	%{name}.console
 Source2:	%{name}.pam
 Source3:	%{name}.desktop
-Source4:	distro.py
-Patch0:		%{name}-0.28-mxddcl.patch
+Source4:	%{name}-distro.py
+Patch0:		%{name}-mxddcl.patch
 BuildRequires:	gcc-c++
 BuildRequires:	python-devel >= 1:2.3
 BuildRequires:	sed >= 4.0
@@ -43,7 +43,7 @@ Graphical user interface for the smart package manager.
 
 %prep
 %setup -q
-#%patch0 -p1 -b .mxddcl
+%patch0 -p1
 # %{_libdir} is hardcoded
 %{__sed} -i -e's,/usr/lib/,%{_libdir}/,' smart/const.py
 
@@ -66,7 +66,7 @@ install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
 install -p smart/interfaces/images/smart.png $RPM_BUILD_ROOT%{_pixmapsdir}/smart.png
 # Currently needs to hardcode %{_libdir}, as this is hardcoded in the
 # code, too.
-install -p %{SOURCE4} $RPM_BUILD_ROOT%{_libdir}/smart
+install -p %{SOURCE4} $RPM_BUILD_ROOT%{_libdir}/smart/distro.py
 
 %find_lang %{name}
 
