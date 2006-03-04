@@ -1,7 +1,8 @@
+%define	module smart
 Summary:	Next generation package handling tool
 Name:		smart
 Version:	0.41
-Release:	0.26.5
+Release:	0.26.7
 License:	GPL
 Group:		Applications/System
 URL:		http://labix.org/smart/
@@ -76,32 +77,12 @@ install -p smart/interfaces/images/smart.png $RPM_BUILD_ROOT%{_pixmapsdir}/smart
 install -p %{SOURCE4} $RPM_BUILD_ROOT%{_libdir}/smart/distro.py
 
 %find_lang %{name}
-
-# Create a list w/o smart/interfaces/gtk to avoid warbing of duplicate
-# in the %files section (otherwise including all and %excluding works,
-# too
-
-echo "%%defattr(-,root,root,-)" > %{name}.fileslist
-find $RPM_BUILD_ROOT%{py_sitedir}/smart -type d \
-| grep -v %{py_sitedir}/smart/interfaces/gtk \
-  | sed -e"s,$RPM_BUILD_ROOT,%%dir ," \
-  >> %{name}.fileslist
-find $RPM_BUILD_ROOT%{py_sitedir}/smart \! -type d \! -name \*.pyo \
-| grep -v %{py_sitedir}/smart/interfaces/gtk \
-  | sed -e"s,$RPM_BUILD_ROOT,," \
-  >> %{name}.fileslist
-find $RPM_BUILD_ROOT%{py_sitedir}/smart -name \*.pyo \
-| grep -v %{py_sitedir}/smart/interfaces/gtk \
-  | sed -e"s,$RPM_BUILD_ROOT,%%ghost ," \
-  >> %{name}.fileslist
-
-# %files does not take two -f arguments
-cat %{name}.lang >> %{name}.fileslist
+%py_postclean
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f %{name}.fileslist
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc HACKING README LICENSE TODO IDEAS
 %attr(755,root,root) %{_bindir}/smart
@@ -111,15 +92,60 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/smart
 %dir /var/lib/smart
 
+%attr(755,root,root) %{py_sitedir}/%{module}/ccache.so
+%attr(755,root,root) %{py_sitedir}/%{module}/util/cdistance.so
+%attr(755,root,root) %{py_sitedir}/%{module}/util/ctagfile.so
+%attr(755,root,root) %{py_sitedir}/%{module}/backends/deb/cdebver.so
+%attr(755,root,root) %{py_sitedir}/%{module}/backends/rpm/crpmver.so
+
+%dir %{py_sitedir}/%{module}
+%{py_sitedir}/%{module}/*.py[co]
+%dir %{py_sitedir}/%{module}/backends
+%{py_sitedir}/%{module}/backends/*.py[co]
+%dir %{py_sitedir}/%{module}/backends/deb
+%{py_sitedir}/%{module}/backends/deb/*.py[co]
+%dir %{py_sitedir}/%{module}/backends/rpm
+%{py_sitedir}/%{module}/backends/rpm/*.py[co]
+%dir %{py_sitedir}/%{module}/backends/slack
+%{py_sitedir}/%{module}/backends/slack/*.py[co]
+%dir %{py_sitedir}/%{module}/channels
+%{py_sitedir}/%{module}/channels/*.py[co]
+%dir %{py_sitedir}/%{module}/commands
+%{py_sitedir}/%{module}/commands/*.py[co]
+%dir %{py_sitedir}/%{module}/interfaces
+%{py_sitedir}/%{module}/interfaces/*.py[co]
+%dir %{py_sitedir}/%{module}/interfaces/images
+%{py_sitedir}/%{module}/interfaces/images/*.py[co]
+%{py_sitedir}/%{module}/interfaces/images/folder.png
+%{py_sitedir}/%{module}/interfaces/images/package-available-locked.png
+%{py_sitedir}/%{module}/interfaces/images/package-available.png
+%{py_sitedir}/%{module}/interfaces/images/package-broken.png
+%{py_sitedir}/%{module}/interfaces/images/package-downgrade.png
+%{py_sitedir}/%{module}/interfaces/images/package-install.png
+%{py_sitedir}/%{module}/interfaces/images/package-installed-locked.png
+%{py_sitedir}/%{module}/interfaces/images/package-installed-outdated.png
+%{py_sitedir}/%{module}/interfaces/images/package-installed.png
+%{py_sitedir}/%{module}/interfaces/images/package-new-locked.png
+%{py_sitedir}/%{module}/interfaces/images/package-new.png
+%{py_sitedir}/%{module}/interfaces/images/package-purge.png
+%{py_sitedir}/%{module}/interfaces/images/package-reinstall.png
+%{py_sitedir}/%{module}/interfaces/images/package-remove.png
+%{py_sitedir}/%{module}/interfaces/images/package-upgrade.png
+%{py_sitedir}/%{module}/interfaces/images/smart.png
+%dir %{py_sitedir}/%{module}/interfaces/text
+%{py_sitedir}/%{module}/interfaces/text/*.py[co]
+%dir %{py_sitedir}/%{module}/plugins
+%{py_sitedir}/%{module}/plugins/*.py[co]
+%dir %{py_sitedir}/%{module}/util
+%{py_sitedir}/%{module}/util/*.py[co]
+
 %files update
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/smart-update
 
 %files gui
 %defattr(644,root,root,755)
-%dir %{py_sitedir}/smart/interfaces/gtk
-%{py_sitedir}/smart/interfaces/gtk/*.py
-%{py_sitedir}/smart/interfaces/gtk/*.pyc
-%ghost %{py_sitedir}/smart/interfaces/gtk/*.pyo
+%dir %{py_sitedir}/%{module}/interfaces/gtk
+%{py_sitedir}/%{module}/interfaces/gtk/*.py[co]
 %{_desktopdir}/smart.desktop
 %{_pixmapsdir}/smart.png
