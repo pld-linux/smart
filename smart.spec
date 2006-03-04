@@ -1,11 +1,12 @@
 # TODO
 # - bundled and modified software:
 #  - pexpect-0.999 http://pexpect.sourceforge.net/
+# - sudo or sth for 'usermode' replacement for 'smart-root'
 %define	module smart
 Summary:	Next generation package handling tool
 Name:		smart
 Version:	0.41
-Release:	0.26.10
+Release:	0.26.11
 License:	GPL
 Group:		Applications/System
 URL:		http://labix.org/smart/
@@ -26,7 +27,6 @@ Requires:	python-cElementTree
 Requires:	python-elementtree
 Requires:	python-rpm
 %pyrequires_eq  python-modules
-#Requires:	usermode
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -98,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{/etc/{pam.d,security/console.apps},%{_desktopdir},%{_pixmapsdir},%{_libdir}/smart,/var/lib/smart}
 python setup.py install -O1 --root=$RPM_BUILD_ROOT
 
-ln -sf consolehelper $RPM_BUILD_ROOT%{_bindir}/smart-root
+ln -sf smart $RPM_BUILD_ROOT%{_bindir}/smart-root
 install -p %{SOURCE1} $RPM_BUILD_ROOT/etc/security/console.apps/smart-root
 install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/smart-root
 cp -f contrib/smart-update/smart-update $RPM_BUILD_ROOT%{_bindir}
