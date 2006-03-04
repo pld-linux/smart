@@ -68,3 +68,14 @@
                      ],
        data_files = I18NFILES +
                     [(PYTHONLIB+"/smart/interfaces/images", 
+--- smart-0.41/smart/option.py~	2005-07-19 23:12:55.000000000 +0300
++++ smart-0.41/smart/option.py	2006-03-04 16:26:11.000000000 +0200
+@@ -19,7 +19,7 @@
+ # along with Smart Package Manager; if not, write to the Free Software
+ # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ #
+-from smart.util import optparse
++import optparse
+ from smart import Error, _
+ import textwrap
+ import sys, os
