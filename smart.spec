@@ -12,13 +12,11 @@ Source2:	%{name}.pam
 Source3:	%{name}.desktop
 Source4:	distro.py
 Patch0:		%{name}-0.28-mxddcl.patch
-#BuildRequires:	desktop-file-utils
 BuildRequires:	gcc-c++
 BuildRequires:	python-devel >= 1:2.3
-#Requires:	/usr/lib/python2.4/site-packages/rpm
-#Requires:	python-abi = %(python -c "import sys ; print sys.version[:3]")
+BuildRequires:	sed >= 4.0
+Requires:	python-rpm
 %pyrequires_eq  python-modules
-#Requires:	rpm-python >= 4.3.3
 #Requires:	usermode
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -37,8 +35,7 @@ special suid command.
 %package gui
 Summary:	Graphical user interface for the smart package manager
 Group:		Applications/System
-#Requires:	/usr/lib/python2.4/site-packages/pygtk.py
-#Requires: pygtk2
+Requires:	python-pygtk-gtk
 Requires:	smart = %{version}-%{release}
 
 %description gui
@@ -48,7 +45,7 @@ Graphical user interface for the smart package manager.
 %setup -q
 #%patch0 -p1 -b .mxddcl
 # %{_libdir} is hardcoded
-perl -pi -e's,%{_libdir}/,%{_libdir}/,' smart/const.py
+%{__sed} -i -e's,/usr/lib/,%{_libdir}/,' smart/const.py
 
 %build
 export CFLAGS="%{rpmcflags}"
@@ -58,34 +55,18 @@ python setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{/etc/{pam.d,security/console.apps},%{_desktopdir},%{_pixmapsdir},%{_libdir}/smart}
 python setup.py install -O1 --root=$RPM_BUILD_ROOT
-#%python_burninversion
 
 ln -sf consolehelper $RPM_BUILD_ROOT%{_bindir}/smart-root
-
-install -d $RPM_BUILD_ROOT/etc/security/console.apps
-install -d $RPM_BUILD_ROOT/etc/pam.d
 install -p %{SOURCE1} $RPM_BUILD_ROOT/etc/security/console.apps/smart-root
 install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/smart-root
-
 cp -f contrib/smart-update/smart-update $RPM_BUILD_ROOT%{_bindir}
-
-install -d $RPM_BUILD_ROOT%{_datadir}/applications
-#desktop-file-install --vendor fedora                            \
-#        --dir $RPM_BUILD_ROOT%{_datadir}/applications              \
-#        --add-category X-Fedora                                 \
-
-install %{SOURCE3} $RPM_BUILD_ROOT%{_datadir}/applications
-
-install -d  $RPM_BUILD_ROOT%{_datadir}/pixmaps
-install -p smart/interfaces/images/smart.png \
-    $RPM_BUILD_ROOT%{_datadir}/pixmaps/smart.png
-
+install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
+install -p smart/interfaces/images/smart.png $RPM_BUILD_ROOT%{_pixmapsdir}/smart.png
 # Currently needs to hardcode %{_libdir}, as this is hardcoded in the
 # code, too.
-install -d $RPM_BUILD_ROOT%{_libdir}/smart
-install -p %{SOURCE4} $RPM_BUILD_ROOT%{_libdir}/smart/
+install -p %{SOURCE4} $RPM_BUILD_ROOT%{_libdir}/smart
 
 %find_lang %{name}
 
