@@ -1,8 +1,11 @@
+# TODO
+# - bundled and modified software:
+#  - pexpect-0.999 http://pexpect.sourceforge.net/
 %define	module smart
 Summary:	Next generation package handling tool
 Name:		smart
 Version:	0.41
-Release:	0.26.7
+Release:	0.26.10
 License:	GPL
 Group:		Applications/System
 URL:		http://labix.org/smart/
@@ -14,7 +17,9 @@ Source3:	%{name}.desktop
 Source4:	%{name}-distro.py
 Patch0:		%{name}-mxddcl.patch
 Patch1:		%{name}-syslibs.patch
+Patch2:		%{name}-optflags.patch
 BuildRequires:	gcc-c++
+BuildRequires:	kdelibs-devel
 BuildRequires:	python-devel >= 1:2.3
 BuildRequires:	sed >= 4.0
 Requires:	python-cElementTree
@@ -45,21 +50,48 @@ Requires:	smart = %{version}-%{release}
 %description gui
 Graphical user interface for the smart package manager.
 
+%package -n ksmarttray
+Summary:	KDE tray program for watching updates with Smart Package Manager
+Group:		Applications/System
+Requires:	smart-update = %{version}-%{release}
+
+%description -n ksmarttray
+KDE tray program for watching updates with Smart Package Manager.
+
+%description -n ksmarttray
+Programa tray do KDE para verificar atualizações com o Smart Package Manager.
+
 %prep
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 # %{_libdir} is hardcoded
 %{__sed} -i -e's,/usr/lib/,%{_libdir}/,' smart/const.py
 
 rm -rf smart/util/elementtree
 rm -rf smart/util/celementtree
+rm -f smart/util/optparse.py
 
 %build
 export CFLAGS="%{rpmcflags}"
 python setup.py build
 
-%{__make} -C contrib/smart-update
+# smart-update
+%{__make} -C contrib/smart-update \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags}"
+
+# ksmarttray
+cd contrib/ksmarttray
+%{__make} -f admin/Makefile.common
+%configure \
+%if "%{_lib}" == "lib64"
+    --enable-libsuffix=64 \
+%endif
+    --%{?debug:en}%{!?debug:dis}able-debug%{?debug:=full} \
+    --with-qt-libraries=%{_libdir}
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -75,6 +107,10 @@ install -p smart/interfaces/images/smart.png $RPM_BUILD_ROOT%{_pixmapsdir}/smart
 # Currently needs to hardcode %{_libdir}, as this is hardcoded in the
 # code, too.
 install -p %{SOURCE4} $RPM_BUILD_ROOT%{_libdir}/smart/distro.py
+
+%{__make} install \
+	-C contrib/ksmarttray \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{name}
 %py_postclean
@@ -149,3 +185,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/interfaces/gtk/*.py[co]
 %{_desktopdir}/smart.desktop
 %{_pixmapsdir}/smart.png
+
+%files -n ksmarttray
+%defattr(644,root,root,755)
+%attr(775,root,root) %{_bindir}/ksmarttray
+%{_datadir}/apps/ksmarttray
