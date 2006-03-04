@@ -1,7 +1,7 @@
 Summary:	Next generation package handling tool
 Name:		smart
 Version:	0.41
-Release:	0.26.1
+Release:	0.26.5
 License:	GPL
 Group:		Applications/System
 URL:		http://labix.org/smart/
@@ -12,9 +12,12 @@ Source2:	%{name}.pam
 Source3:	%{name}.desktop
 Source4:	%{name}-distro.py
 Patch0:		%{name}-mxddcl.patch
+Patch1:		%{name}-syslibs.patch
 BuildRequires:	gcc-c++
 BuildRequires:	python-devel >= 1:2.3
 BuildRequires:	sed >= 4.0
+Requires:	python-cElementTree
+Requires:	python-elementtree
 Requires:	python-rpm
 %pyrequires_eq  python-modules
 #Requires:	usermode
@@ -29,8 +32,8 @@ Group:		Applications/System
 Requires:	smart = %{version}-%{release}
 
 %description update
-Allows execution of 'smart update' by normal users through a
-special suid command.
+Allows execution of 'smart update' by normal users through a special
+suid command.
 
 %package gui
 Summary:	Graphical user interface for the smart package manager
@@ -44,8 +47,12 @@ Graphical user interface for the smart package manager.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 # %{_libdir} is hardcoded
 %{__sed} -i -e's,/usr/lib/,%{_libdir}/,' smart/const.py
+
+rm -rf smart/util/elementtree
+rm -rf smart/util/celementtree
 
 %build
 export CFLAGS="%{rpmcflags}"
@@ -55,7 +62,7 @@ python setup.py build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/{pam.d,security/console.apps},%{_desktopdir},%{_pixmapsdir},%{_libdir}/smart}
+install -d $RPM_BUILD_ROOT{/etc/{pam.d,security/console.apps},%{_desktopdir},%{_pixmapsdir},%{_libdir}/smart,/var/lib/smart}
 python setup.py install -O1 --root=$RPM_BUILD_ROOT
 
 ln -sf consolehelper $RPM_BUILD_ROOT%{_bindir}/smart-root
@@ -102,6 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 %config /etc/security/console.apps/smart-root
 %config /etc/pam.d/smart-root
 %{_libdir}/smart
+%dir /var/lib/smart
 
 %files update
 %defattr(644,root,root,755)
