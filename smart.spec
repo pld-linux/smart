@@ -19,8 +19,8 @@ Source4:	%{name}-distro.py
 Patch0:		%{name}-mxddcl.patch
 Patch1:		%{name}-syslibs.patch
 Patch2:		%{name}-optflags.patch
-BuildRequires:	gcc-c++
 BuildRequires:	kdelibs-devel
+BuildRequires:	libstdc++-devel
 BuildRequires:	python-devel >= 1:2.3
 BuildRequires:	sed >= 4.0
 Requires:	python-cElementTree
