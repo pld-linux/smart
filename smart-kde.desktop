@@ -9,6 +9,6 @@ Exec=/usr/bin/smart --gui
 Type=Application
 Terminal=false
 StartupNotify=true
-Categories=PackageManager;System;Application
+Categories=PackageManager;System;Application;
 X-KDE-SubstituteUID=true
 OnlyShowIn=KDE

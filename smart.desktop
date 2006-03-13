@@ -9,5 +9,5 @@ Icon=smart.png
 Type=Application
 Terminal=false
 StartupNotify=true
-Categories=PackageManager;GTK;System;Application
+Categories=PackageManager;GTK;System;Application;
 NotShowIn=KDE
