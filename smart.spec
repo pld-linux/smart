@@ -1,21 +1,19 @@
 # TODO
 # - bundled and modified software:
 #  - pexpect-0.999 http://pexpect.sourceforge.net/
-# - sudo or sth for 'usermode' replacement for 'smart-root'
 %define	module smart
 Summary:	Next generation package handling tool
 Summary(pl):	Narzêdzie do obs³ugi pakietów nowej generacji
 Name:		smart
 Version:	0.41
-Release:	0.26.11
+Release:	0.26.12
 License:	GPL
 Group:		Applications/System
 Source0:	http://labix.org/download/smart/%{name}-%{version}.tar.bz2
 # Source0-md5:	1460dfbfe7f739ac718525c71f46b5fc
-Source1:	%{name}.console
-Source2:	%{name}.pam
-Source3:	%{name}.desktop
-Source4:	%{name}-distro.py
+Source1:	%{name}-distro.py
+Source2:	%{name}.desktop
+Source3:	%{name}-kde.desktop
 Patch0:		%{name}-mxddcl.patch
 Patch1:		%{name}-syslibs.patch
 Patch2:		%{name}-optflags.patch
@@ -114,18 +112,16 @@ cd contrib/ksmarttray
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/etc/{pam.d,security/console.apps},%{_desktopdir},%{_pixmapsdir},%{_libdir}/smart,/var/lib/smart}
+install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},%{_libdir}/smart,/var/lib/smart}
 python setup.py install -O1 --root=$RPM_BUILD_ROOT
 
-ln -sf smart $RPM_BUILD_ROOT%{_bindir}/smart-root
-install -p %{SOURCE1} $RPM_BUILD_ROOT/etc/security/console.apps/smart-root
-install -p %{SOURCE2} $RPM_BUILD_ROOT/etc/pam.d/smart-root
 cp -f contrib/smart-update/smart-update $RPM_BUILD_ROOT%{_bindir}
-install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}
+install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
+install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}/%{name}-kde.desktop
 install -p smart/interfaces/images/smart.png $RPM_BUILD_ROOT%{_pixmapsdir}/smart.png
 # Currently needs to hardcode %{_libdir}, as this is hardcoded in the
 # code, too.
-install -p %{SOURCE4} $RPM_BUILD_ROOT%{_libdir}/smart/distro.py
+install -p %{SOURCE1} $RPM_BUILD_ROOT%{_libdir}/smart/distro.py
 
 %{__make} install \
 	-C contrib/ksmarttray \
@@ -141,9 +137,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc HACKING README LICENSE TODO IDEAS
 %attr(755,root,root) %{_bindir}/smart
-%attr(755,root,root) %{_bindir}/smart-root
-%config /etc/security/console.apps/smart-root
-%config /etc/pam.d/smart-root
 %{_libdir}/smart
 %dir /var/lib/smart
 
@@ -203,6 +196,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{module}/interfaces/gtk
 %{py_sitedir}/%{module}/interfaces/gtk/*.py[co]
 %{_desktopdir}/smart.desktop
+%{_desktopdir}/smart-kde.desktop
 %{_pixmapsdir}/smart.png
 
 %files -n ksmarttray
