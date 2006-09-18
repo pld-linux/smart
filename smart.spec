@@ -6,18 +6,17 @@
 Summary:	Next generation package handling tool
 Summary(pl):	Narzêdzie do obs³ugi pakietów nowej generacji
 Name:		smart
-Version:	0.41
-Release:	0.26.12
+Version:	0.42
+Release:	0.1
 License:	GPL
 Group:		Applications/System
 Source0:	http://labix.org/download/smart/%{name}-%{version}.tar.bz2
-# Source0-md5:	1460dfbfe7f739ac718525c71f46b5fc
+# Source0-md5:	e60b411ad41dbe2e6fc57a04d82f91cb
 Source1:	%{name}-distro.py
 Source2:	%{name}.desktop
 Source3:	%{name}-kde.desktop
-Patch0:		%{name}-mxddcl.patch
-Patch1:		%{name}-syslibs.patch
-Patch2:		%{name}-optflags.patch
+Patch0:		%{name}-syslibs.patch
+Patch1:		%{name}-autoconf-2.6.patch
 URL:		http://labix.org/smart/
 %if %{with kde}
 BuildRequires:	kdelibs-devel
@@ -86,8 +85,8 @@ Programa tray do KDE para verificar atualizações com o Smart Package Manager.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch1 -p0
+
 # %{_libdir} is hardcoded
 %{__sed} -i -e's,/usr/lib/,%{_libdir}/,' smart/const.py
 
@@ -149,6 +148,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc HACKING README LICENSE TODO IDEAS
 %attr(755,root,root) %{_bindir}/smart
+%{_mandir}/man8/smart.8.gz
 %{_libdir}/smart
 %dir /var/lib/smart
 
@@ -176,22 +176,22 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/interfaces/*.py[co]
 %dir %{py_sitedir}/%{module}/interfaces/images
 %{py_sitedir}/%{module}/interfaces/images/*.py[co]
-%{py_sitedir}/%{module}/interfaces/images/folder.png
-%{py_sitedir}/%{module}/interfaces/images/package-available-locked.png
-%{py_sitedir}/%{module}/interfaces/images/package-available.png
-%{py_sitedir}/%{module}/interfaces/images/package-broken.png
-%{py_sitedir}/%{module}/interfaces/images/package-downgrade.png
-%{py_sitedir}/%{module}/interfaces/images/package-install.png
-%{py_sitedir}/%{module}/interfaces/images/package-installed-locked.png
-%{py_sitedir}/%{module}/interfaces/images/package-installed-outdated.png
-%{py_sitedir}/%{module}/interfaces/images/package-installed.png
-%{py_sitedir}/%{module}/interfaces/images/package-new-locked.png
-%{py_sitedir}/%{module}/interfaces/images/package-new.png
-%{py_sitedir}/%{module}/interfaces/images/package-purge.png
-%{py_sitedir}/%{module}/interfaces/images/package-reinstall.png
-%{py_sitedir}/%{module}/interfaces/images/package-remove.png
-%{py_sitedir}/%{module}/interfaces/images/package-upgrade.png
-%{py_sitedir}/%{module}/interfaces/images/smart.png
+%{py_sitescriptdir}/%{module}/interfaces/images/folder.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-available-locked.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-available.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-broken.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-downgrade.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-install.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-installed-locked.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-installed-outdated.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-installed.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-new-locked.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-new.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-purge.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-reinstall.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-remove.png
+%{py_sitescriptdir}/%{module}/interfaces/images/package-upgrade.png
+%{py_sitescriptdir}/%{module}/interfaces/images/smart.png
 %dir %{py_sitedir}/%{module}/interfaces/text
 %{py_sitedir}/%{module}/interfaces/text/*.py[co]
 %dir %{py_sitedir}/%{module}/plugins
