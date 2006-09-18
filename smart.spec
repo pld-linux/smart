@@ -79,9 +79,12 @@ Program zasobnika KDE do ogl±dania uaktualnieñ przy u¿yciu zarz±dcy
 pakietów Smart.
 
 %description -n ksmarttray -l pt
-Programa tray do KDE para verificar atualizações com o Smart Package Manager.
+Programa tray do KDE para verificar atualizações com o Smart Package
+Manager.
 %endif
 
+Programa tray do KDE para verificar atualizações com o Smart Package
+Manager.
 %prep
 %setup -q
 %patch0 -p1
@@ -148,7 +151,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc HACKING README LICENSE TODO IDEAS
 %attr(755,root,root) %{_bindir}/smart
-%{_mandir}/man8/smart.8.gz
+%{_mandir}/man8/smart.8*
 %{_libdir}/smart
 %dir /var/lib/smart
 
