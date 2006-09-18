@@ -135,7 +135,7 @@ install -p %{SOURCE1} $RPM_BUILD_ROOT%{_libdir}/smart/distro.py
 %if %{with kde}
 %{__make} install \
 	-C contrib/ksmarttray \
-	DESTDR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
 %find_lang %{name}
