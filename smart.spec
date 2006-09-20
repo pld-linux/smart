@@ -83,8 +83,6 @@ Programa tray do KDE para verificar atualizações com o Smart Package
 Manager.
 %endif
 
-Programa tray do KDE para verificar atualizações com o Smart Package
-Manager.
 %prep
 %setup -q
 %patch0 -p1
