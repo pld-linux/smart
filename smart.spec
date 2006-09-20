@@ -7,7 +7,7 @@ Summary:	Next generation package handling tool
 Summary(pl):	Narzêdzie do obs³ugi pakietów nowej generacji
 Name:		smart
 Version:	0.42
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Applications/System
 Source0:	http://labix.org/download/smart/%{name}-%{version}.tar.bz2
@@ -179,6 +179,9 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/interfaces/*.py[co]
 %dir %{py_sitedir}/%{module}/interfaces/images
 %{py_sitedir}/%{module}/interfaces/images/*.py[co]
+%dir %{py_sitescriptdir}/%{module}
+%dir %{py_sitescriptdir}/%{module}/interfaces
+%dir %{py_sitescriptdir}/%{module}/interfaces/images
 %{py_sitescriptdir}/%{module}/interfaces/images/folder.png
 %{py_sitescriptdir}/%{module}/interfaces/images/package-available-locked.png
 %{py_sitescriptdir}/%{module}/interfaces/images/package-available.png
