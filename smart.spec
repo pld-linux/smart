@@ -1,7 +1,10 @@
 # TODO
 # - bundled and modified software:
 #  - pexpect-0.999 http://pexpect.sourceforge.net/
-%bcond_without	kde # not needed for GNOME
+#
+# Conditional build:
+%bcond_without	kde	# without KDE support (not needed for GNOME)
+#
 %define	module smart
 Summary:	Next generation package handling tool
 Summary(pl):	Narzêdzie do obs³ugi pakietów nowej generacji
@@ -64,7 +67,6 @@ Graphical user interface for the Smart Package Manager.
 %description gui -l pl
 Graficzny interfejs u¿ytkownika do zarz±dcy pakietów Smart.
 
-%if %{with kde}
 %package -n ksmarttray
 Summary:	KDE tray program for watching updates with Smart Package Manager
 Summary(pl):	Program zasobnika KDE do ogl±dania uaktualnieñ przy u¿yciu zarz±dcy pakietów Smart
@@ -81,7 +83,6 @@ pakietów Smart.
 %description -n ksmarttray -l pt
 Programa tray do KDE para verificar atualizações com o Smart Package
 Manager.
-%endif
 
 %prep
 %setup -q
@@ -125,18 +126,15 @@ python setup.py install -O1 --root=$RPM_BUILD_ROOT
 
 cp -f contrib/smart-update/smart-update $RPM_BUILD_ROOT%{_bindir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
-%if %{with kde}
-install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}/%{name}-kde.desktop
-%endif
 install -p smart/interfaces/images/smart.png $RPM_BUILD_ROOT%{_pixmapsdir}/smart.png
 # Currently needs to hardcode %{_libdir}, as this is hardcoded in the
 # code, too.
 install -p %{SOURCE1} $RPM_BUILD_ROOT%{_libdir}/smart/distro.py
 
 %if %{with kde}
-%{__make} install \
-	-C contrib/ksmarttray \
+%{__make} -C contrib/ksmarttray install \
 	DESTDIR=$RPM_BUILD_ROOT
+install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}/%{name}-kde.desktop
 %endif
 
 %find_lang %{name}
