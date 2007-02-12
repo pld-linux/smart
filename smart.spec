@@ -7,7 +7,7 @@
 #
 %define	module smart
 Summary:	Next generation package handling tool
-Summary(pl):	Narzêdzie do obs³ugi pakietów nowej generacji
+Summary(pl.UTF-8):   NarzÄ™dzie do obsÅ‚ugi pakietÃ³w nowej generacji
 Name:		smart
 Version:	0.42
 Release:	0.2
@@ -36,13 +36,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Smart Package Manager is a next generation package handling tool.
 
-%description -l pl
-Smart Package Manager to narzêdzie do obs³ugi pakietów nowej
+%description -l pl.UTF-8
+Smart Package Manager to narzÄ™dzie do obsÅ‚ugi pakietÃ³w nowej
 generacji.
 
 %package update
 Summary:	Allows execution of 'smart update' by normal users (suid)
-Summary(pl):	Pakiet (suid) pozwalaj±cy wykonywaæ "smart update" zwyk³ym u¿ytkownikom
+Summary(pl.UTF-8):   Pakiet (suid) pozwalajÄ…cy wykonywaÄ‡ "smart update" zwykÅ‚ym uÅ¼ytkownikom
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
 
@@ -50,13 +50,13 @@ Requires:	%{name} = %{version}-%{release}
 Allows execution of 'smart update' by normal users through a special
 suid command.
 
-%description update -l pl
-Ten pakiet pozwala wykonywaæ "smart update" zwyk³ym u¿ytkownikom
+%description update -l pl.UTF-8
+Ten pakiet pozwala wykonywaÄ‡ "smart update" zwykÅ‚ym uÅ¼ytkownikom
 poprzez specjalne polecenie suid.
 
 %package gui
 Summary:	Graphical user interface for the Smart Package Manager
-Summary(pl):	Graficzny interfejs u¿ytkownika do zarz±dcy pakietów Smart
+Summary(pl.UTF-8):   Graficzny interfejs uÅ¼ytkownika do zarzÄ…dcy pakietÃ³w Smart
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-pygtk-gtk
@@ -64,24 +64,24 @@ Requires:	python-pygtk-gtk
 %description gui
 Graphical user interface for the Smart Package Manager.
 
-%description gui -l pl
-Graficzny interfejs u¿ytkownika do zarz±dcy pakietów Smart.
+%description gui -l pl.UTF-8
+Graficzny interfejs uÅ¼ytkownika do zarzÄ…dcy pakietÃ³w Smart.
 
 %package -n ksmarttray
 Summary:	KDE tray program for watching updates with Smart Package Manager
-Summary(pl):	Program zasobnika KDE do ogl±dania uaktualnieñ przy u¿yciu zarz±dcy pakietów Smart
+Summary(pl.UTF-8):   Program zasobnika KDE do oglÄ…dania uaktualnieÅ„ przy uÅ¼yciu zarzÄ…dcy pakietÃ³w Smart
 Group:		Applications/System
 Requires:	smart-update = %{version}-%{release}
 
 %description -n ksmarttray
 KDE tray program for watching updates with Smart Package Manager.
 
-%description -n ksmarttray -l pl
-Program zasobnika KDE do ogl±dania uaktualnieñ przy u¿yciu zarz±dcy
-pakietów Smart.
+%description -n ksmarttray -l pl.UTF-8
+Program zasobnika KDE do oglÄ…dania uaktualnieÅ„ przy uÅ¼yciu zarzÄ…dcy
+pakietÃ³w Smart.
 
-%description -n ksmarttray -l pt
-Programa tray do KDE para verificar atualizações com o Smart Package
+%description -n ksmarttray -l pt.UTF-8
+Programa tray do KDE para verificar atualizaÃ§Ãµes com o Smart Package
 Manager.
 
 %prep
