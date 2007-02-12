@@ -7,7 +7,7 @@
 #
 %define	module smart
 Summary:	Next generation package handling tool
-Summary(pl.UTF-8):   Narzędzie do obsługi pakietów nowej generacji
+Summary(pl.UTF-8):	Narzędzie do obsługi pakietów nowej generacji
 Name:		smart
 Version:	0.42
 Release:	0.2
@@ -42,7 +42,7 @@ generacji.
 
 %package update
 Summary:	Allows execution of 'smart update' by normal users (suid)
-Summary(pl.UTF-8):   Pakiet (suid) pozwalający wykonywać "smart update" zwykłym użytkownikom
+Summary(pl.UTF-8):	Pakiet (suid) pozwalający wykonywać "smart update" zwykłym użytkownikom
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
 
@@ -56,7 +56,7 @@ poprzez specjalne polecenie suid.
 
 %package gui
 Summary:	Graphical user interface for the Smart Package Manager
-Summary(pl.UTF-8):   Graficzny interfejs użytkownika do zarządcy pakietów Smart
+Summary(pl.UTF-8):	Graficzny interfejs użytkownika do zarządcy pakietów Smart
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
 Requires:	python-pygtk-gtk
@@ -69,7 +69,7 @@ Graficzny interfejs użytkownika do zarządcy pakietów Smart.
 
 %package -n ksmarttray
 Summary:	KDE tray program for watching updates with Smart Package Manager
-Summary(pl.UTF-8):   Program zasobnika KDE do oglądania uaktualnień przy użyciu zarządcy pakietów Smart
+Summary(pl.UTF-8):	Program zasobnika KDE do oglądania uaktualnień przy użyciu zarządcy pakietów Smart
 Group:		Applications/System
 Requires:	smart-update = %{version}-%{release}
 
