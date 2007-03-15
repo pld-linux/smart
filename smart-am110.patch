@@ -1,0 +1,12 @@
+diff -urN smart-0.50/contrib/ksmarttray/admin/cvs.sh smart-0.50.new/contrib/ksmarttray/admin/cvs.sh
+--- smart-0.50/contrib/ksmarttray/admin/cvs.sh	2006-12-08 20:35:23.000000000 +0100
++++ smart-0.50.new/contrib/ksmarttray/admin/cvs.sh	2007-03-15 12:00:04.422650375 +0100
+@@ -64,7 +64,7 @@
+     echo "*** KDE requires automake 1.6.1 or newer"
+     exit 1
+     ;;
+-  automake*1.6.* | automake*1.7* | automake*1.8.* | automake*1.9* ) : ;;
++  automake*1.6.* | automake*1.7* | automake*1.8.* | automake*1.9* | automake*1.10* ) : ;;
+   "" )
+     echo "*** AUTOMAKE NOT FOUND!."
+     echo "*** KDE requires automake 1.6.1 or newer"
