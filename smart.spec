@@ -21,6 +21,7 @@ Source3:	%{name}-kde.desktop
 Patch0:		%{name}-syslibs.patch
 Patch1:		%{name}-autoconf-2.6.patch
 Patch2:		%{name}-archscore.patch
+Patch3:		%{name}-am110.patch
 URL:		http://labix.org/smart/
 %if %{with kde}
 BuildRequires:	kdelibs-devel
@@ -90,6 +91,7 @@ Manager.
 %patch0 -p1
 %patch1 -p0
 %patch2 -p1
+%patch3 -p1
 
 # %{_libdir} is hardcoded
 %{__sed} -i -e's,/usr/lib/,%{_libdir}/,' smart/const.py
