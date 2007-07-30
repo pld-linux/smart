@@ -19,6 +19,7 @@ Source1:	%{name}-distro.py
 Source2:	%{name}.desktop
 Source3:	%{name}-kde.desktop
 Patch0:		%{name}-syslibs.patch
+Patch1:		%{name}-pyc.patch
 Patch2:		%{name}-archscore.patch
 Patch3:		%{name}-am110.patch
 URL:		http://labix.org/smart/
@@ -88,6 +89,7 @@ Manager.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 %patch2 -p1
 %patch3 -p1
 
