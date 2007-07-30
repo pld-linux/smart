@@ -177,25 +177,22 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/interfaces/*.py[co]
 %dir %{py_sitedir}/%{module}/interfaces/images
 %{py_sitedir}/%{module}/interfaces/images/*.py[co]
-%dir %{py_sitescriptdir}/%{module}
-%dir %{py_sitescriptdir}/%{module}/interfaces
-%dir %{py_sitescriptdir}/%{module}/interfaces/images
-%{py_sitescriptdir}/%{module}/interfaces/images/folder.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-available-locked.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-available.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-broken.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-downgrade.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-install.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-installed-locked.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-installed-outdated.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-installed.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-new-locked.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-new.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-purge.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-reinstall.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-remove.png
-%{py_sitescriptdir}/%{module}/interfaces/images/package-upgrade.png
-%{py_sitescriptdir}/%{module}/interfaces/images/smart.png
+%{py_sitedir}/%{module}/interfaces/images/folder.png
+%{py_sitedir}/%{module}/interfaces/images/package-available-locked.png
+%{py_sitedir}/%{module}/interfaces/images/package-available.png
+%{py_sitedir}/%{module}/interfaces/images/package-broken.png
+%{py_sitedir}/%{module}/interfaces/images/package-downgrade.png
+%{py_sitedir}/%{module}/interfaces/images/package-install.png
+%{py_sitedir}/%{module}/interfaces/images/package-installed-locked.png
+%{py_sitedir}/%{module}/interfaces/images/package-installed-outdated.png
+%{py_sitedir}/%{module}/interfaces/images/package-installed.png
+%{py_sitedir}/%{module}/interfaces/images/package-new-locked.png
+%{py_sitedir}/%{module}/interfaces/images/package-new.png
+%{py_sitedir}/%{module}/interfaces/images/package-purge.png
+%{py_sitedir}/%{module}/interfaces/images/package-reinstall.png
+%{py_sitedir}/%{module}/interfaces/images/package-remove.png
+%{py_sitedir}/%{module}/interfaces/images/package-upgrade.png
+%{py_sitedir}/%{module}/interfaces/images/smart.png
 %dir %{py_sitedir}/%{module}/interfaces/text
 %{py_sitedir}/%{module}/interfaces/text/*.py[co]
 %dir %{py_sitedir}/%{module}/plugins
