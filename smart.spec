@@ -9,17 +9,16 @@
 Summary:	Next generation package handling tool
 Summary(pl.UTF-8):	Narzędzie do obsługi pakietów nowej generacji
 Name:		smart
-Version:	0.50
+Version:	0.51
 Release:	0.1
 License:	GPL
 Group:		Applications/System
 Source0:	http://labix.org/download/smart/%{name}-%{version}.tar.bz2
-# Source0-md5:	7595df0259829fff64496f1c359a53cf
+# Source0-md5:	6584bf3b977081162d19e220fdbcb3ac
 Source1:	%{name}-distro.py
 Source2:	%{name}.desktop
 Source3:	%{name}-kde.desktop
 Patch0:		%{name}-syslibs.patch
-Patch1:		%{name}-autoconf-2.6.patch
 Patch2:		%{name}-archscore.patch
 Patch3:		%{name}-am110.patch
 URL:		http://labix.org/smart/
@@ -89,7 +88,6 @@ Manager.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p0
 %patch2 -p1
 %patch3 -p1
 
