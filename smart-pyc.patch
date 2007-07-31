@@ -11,3 +11,29 @@
              infos[type] = getChannelInfo(type)
      return infos
 
+--- smart-0.51/smart/__init__.py~	2007-01-15 20:27:34.000000000 +0100
++++ smart-0.51/smart/__init__.py	2007-07-31 18:03:30.662806672 +0200
+@@ -166,19 +166,19 @@
+     if os.path.isdir(PLUGINSDIR):
+         entries.extend(os.listdir(PLUGINSDIR))
+     for entry in os.listdir(pluginsdir):
+-        if entry != "__init__.py" and entry.endswith(".py"):
+-            __import__("smart.plugins."+entry[:-3])
++        if entry != "__init__.pyc" and entry.endswith(".pyc"):
++            __import__("smart.plugins."+entry[:-4])
+         else:
+             entrypath = os.path.join(pluginsdir, entry)
+             if os.path.isdir(entrypath):
+-                initpath = os.path.join(entrypath, "__init__.py")
++                initpath = os.path.join(entrypath, "__init__.pyc")
+                 if os.path.isfile(initpath):
+                     __import__("smart.plugins."+entry)
+     backendsdir = os.path.dirname(backends.__file__)
+     for entry in os.listdir(backendsdir):
+         entrypath = os.path.join(backendsdir, entry)
+         if os.path.isdir(entrypath):
+-            initpath = os.path.join(entrypath, "__init__.py")
++            initpath = os.path.join(entrypath, "__init__.pyc")
+             if os.path.isfile(initpath):
+                 __import__("smart.backends."+entry)
+ 
