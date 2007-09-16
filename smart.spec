@@ -33,6 +33,7 @@ Requires:	python-cElementTree
 Requires:	python-elementtree
 Requires:	python-rpm
 %pyrequires_eq  python-modules
+Suggests:   gksu
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
