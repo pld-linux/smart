@@ -1,0 +1,14 @@
+--- smart-0.52/smart/backends/rpm/metadata.py~	2007-10-09 15:48:35.000000000 +0200
++++ smart-0.52/smart/backends/rpm/metadata.py	2007-10-09 16:00:29.393594668 +0200
+@@ -225,7 +225,10 @@
+                         if r:
+                             eversion = "%s-%s" % (eversion, r)
+                         if "flags" in elem.keys():
+-                            erelation = COMPMAP.get(elem.get("flags"))
++                            flags = elem.get("flags").split(",")
++                            if "OPTIONAL" in flags:
++                                flags.remove("OPTIONAL")
++                            erelation = COMPMAP.get(",".join(flags))
+                         else:
+                             erelation = None
+                     else:
