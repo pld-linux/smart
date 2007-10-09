@@ -6,8 +6,8 @@
                          if "flags" in elem.keys():
 -                            erelation = COMPMAP.get(elem.get("flags"))
 +                            flags = elem.get("flags").split(",")
-+                            if "OPTIONAL" in flags:
-+                                flags.remove("OPTIONAL")
++                            if "MISSINGOK" in flags:
++                                flags.remove("MISSINGOK")
 +                            erelation = COMPMAP.get(",".join(flags))
                          else:
                              erelation = None
