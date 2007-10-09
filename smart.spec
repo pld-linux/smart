@@ -9,12 +9,12 @@
 Summary:	Next generation package handling tool
 Summary(pl.UTF-8):	Narzędzie do obsługi pakietów nowej generacji
 Name:		smart
-Version:	0.51
+Version:	0.52
 Release:	0.1
 License:	GPL
 Group:		Applications/System
 Source0:	http://labix.org/download/smart/%{name}-%{version}.tar.bz2
-# Source0-md5:	6584bf3b977081162d19e220fdbcb3ac
+# Source0-md5:	f1681adedd18b86f679a53ad8361c9e9
 Source1:	%{name}-distro.py
 Source2:	%{name}.desktop
 Source3:	%{name}-kde.desktop
