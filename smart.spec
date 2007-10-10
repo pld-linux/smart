@@ -10,7 +10,7 @@ Summary:	Next generation package handling tool
 Summary(pl.UTF-8):	Narzędzie do obsługi pakietów nowej generacji
 Name:		smart
 Version:	0.52
-Release:	0.2
+Release:	0.3
 License:	GPL
 Group:		Applications/System
 Source0:	http://labix.org/download/smart/%{name}-%{version}.tar.bz2
@@ -23,6 +23,7 @@ Patch1:		%{name}-pyc.patch
 Patch2:		%{name}-archscore.patch
 Patch3:		%{name}-am110.patch
 Patch4:		%{name}-missingok.patch
+Patch5:		%{name}-pycurl-segfaults.patch
 URL:		http://labix.org/smart/
 %if %{with kde}
 BuildRequires:	kdelibs-devel
@@ -95,6 +96,7 @@ Manager.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p0
 
 # %{_libdir} is hardcoded
 %{__sed} -i -e's,/usr/lib/,%{_libdir}/,' smart/const.py

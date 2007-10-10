@@ -1,0 +1,137 @@
+Index: smart/fetcher.py
+===================================================================
+--- smart/fetcher.py	(revision 886)
++++ smart/fetcher.py	(working copy)
+@@ -1457,37 +1457,49 @@
+         self._active = {}   # handle -> (scheme, host)
+         self._inactive = {} # handle -> (user, host, port)
+         self._activelimit = {} # host -> num
+-        self._running = False
+         self._multi = pycurl.CurlMulti()
+-        self._lock = thread.allocate_lock()
+ 
+-    def tick(self):
++    def perform(self):
++        """Ask Curl to download files.
++
++        @return: True if there is still something to do.
++        """
+         import pycurl
++        res, num = self._multi.perform()
++        if res == pycurl.E_CALL_MULTI_PERFORM:
++            return True
++        return False
+ 
+-        if not self._running and self._queue:
+-            self._running = True
+-            thread.start_new_thread(self.perform, ())
++    def deactivate_handle(self, handle):
++        del self._active[handle]
++        self._multi.remove_handle(handle)
++        url = handle.item.getURL()
++        self._inactive[handle] = (url.user, url.host, url.port)
+ 
++    def stop(self):
++        FetcherHandler.stop(self)
++        # XXX This should not be needed, but somehow it seems to help
++        #     in cases where pycurl segfaults.
++        self._multi = pycurl.CurlMulti()
++
++    def tick(self):
++        import pycurl
++
+         fetcher = self._fetcher
+-        multi = self._multi
+ 
+         if self._cancel:
+-            self._lock.acquire()
+-            for handle in self._active:
+-                item = handle.item
+-                item.setCancelled()
+-                url = item.getURL()
+-                multi.remove_handle(handle)
+-                userhost = (url.user, url.host, url.port)
++            for handle in list(self._active):
++                handle.item.setCancelled()
++                self.deactivate_handle(handle)
+             self._active.clear()
+-            self._lock.release()
+ 
++        if self.perform():
++            return True
++
+         num = 1
+         while num != 0:
+ 
+-            self._lock.acquire()
+-            num, succeeded, failed = multi.info_read()
+-            self._lock.release()
++            num, succeeded, failed = self._multi.info_read()
+ 
+             self.changeActiveDownloads(-len(succeeded)-len(failed))
+ 
+@@ -1501,9 +1513,7 @@
+ 
+                 local.close()
+ 
+-                self._lock.acquire()
+-                multi.remove_handle(handle)
+-                self._lock.release()
++                self.deactivate_handle(handle)
+ 
+                 if handle.getinfo(pycurl.SIZE_DOWNLOAD) == 0:
+                     # Not modified
+@@ -1516,10 +1526,6 @@
+                     if mtime != -1:
+                         os.utime(localpath, (mtime, mtime))
+ 
+-                del self._active[handle]
+-                userhost = (url.user, url.host, url.port)
+-                self._inactive[handle] = userhost
+-
+                 valid, reason = fetcher.validate(item, localpath,
+                                                  withreason=True)
+                 if valid:
+@@ -1540,14 +1546,8 @@
+ 
+                 local.close()
+ 
+-                self._lock.acquire()
+-                multi.remove_handle(handle)
+-                self._lock.release()
++                self.deactivate_handle(handle)
+ 
+-                del self._active[handle]
+-                userhost = (url.user, url.host, url.port)
+-                self._inactive[handle] = userhost
+-
+                 if handle.partsize and "byte ranges" in errmsg:
+                     os.unlink(localpath+".part")
+                     item.reset()
+@@ -1652,25 +1652,10 @@
+                             handle.setopt(pycurl.TIMECONDITION,
+                                           pycurl.TIMECONDITION_NONE)
+ 
+-                        self._lock.acquire()
+-                        multi.add_handle(handle)
+-                        self._lock.release()
++                        self._multi.add_handle(handle)
+ 
+         return bool(self._queue or self._active)
+ 
+-    def perform(self):
+-        import pycurl
+-        multi = self._multi
+-        mp = pycurl.E_CALL_MULTI_PERFORM
+-        while self._queue or self._active:
+-            self._lock.acquire()
+-            res = mp
+-            while res == mp:
+-                res, num = multi.perform()
+-            self._lock.release()
+-            time.sleep(0.2)
+-        self._running = False
+-
+ try:
+     import pycurl
+ except ImportError:
