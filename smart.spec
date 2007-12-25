@@ -218,9 +218,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{module}/interfaces/gtk
 %{py_sitedir}/%{module}/interfaces/gtk/*.py[co]
 %{_desktopdir}/smart.desktop
-%if %{with kde}
 %{_desktopdir}/smart-kde.desktop
-%endif
 %{_pixmapsdir}/smart.png
 
 %if %{with kde}
