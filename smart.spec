@@ -35,7 +35,8 @@ Requires:	python-cElementTree
 Requires:	python-elementtree
 Requires:	python-rpm
 %pyrequires_eq  python-modules
-Suggests:   gksu
+Suggests:	gksu
+Suggests:	smart-config
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
