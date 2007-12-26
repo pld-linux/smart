@@ -1,12 +1,15 @@
 [Desktop Entry]
 Name=Smart Package Manager
+Name[pl]=Zarządca pakietów Smart
 Name[pt_BR]=Gerenciador de Pacotes Smart
 Comment=Next generation package handling tool
+Comment[pl]=Narzędzie do obsługi pakietów nowej generacji
 Comment[pt_BR]=Gerenciador de pacotes de próxima geração
 Exec=gksu -u root 'smart --gui'
 Icon=smart
 Type=Application
 Terminal=false
 StartupNotify=true
-Categories=PackageManager;GTK;System;Application;
-NotShowIn=KDE
+Categories=PackageManager;GTK;System;
+NotShowIn=KDE;
+# vi:encoding=utf-8
