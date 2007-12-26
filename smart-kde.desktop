@@ -1,10 +1,9 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=Smart Package Manager
 Name[pt_BR]=Gerenciador de Pacotes Smart
 Comment=Next generation package handling tool
 Comment[pt_BR]=Gerenciador de pacotes de próxima geração
-Icon=smart.png
+Icon=smart
 Exec=/usr/bin/smart --gui
 Type=Application
 Terminal=false
