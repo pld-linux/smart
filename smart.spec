@@ -131,7 +131,7 @@ cd contrib/ksmarttray
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},%{_libdir}/smart,/var/lib/smart}
+install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},%{_libdir}/smart,/var/lib/smart/{channels,packages}}
 python setup.py install -O1 --root=$RPM_BUILD_ROOT
 
 cp -f contrib/smart-update/smart-update $RPM_BUILD_ROOT%{_bindir}
@@ -149,6 +149,8 @@ install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}/%{name}-kde.desktop
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{es_ES,es}
 
+touch $RPM_BUILD_ROOT/var/lib/smart/packages/{cache,config}
+
 %find_lang %{name}
 %py_postclean
 
@@ -162,6 +164,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/smart.8*
 %{_libdir}/smart
 %dir /var/lib/smart
+%dir /var/lib/smart/channels
+%dir /var/lib/smart/packages
+%ghost /var/lib/smart/packages/cache
+%ghost /var/lib/smart/packages/config
 
 %attr(755,root,root) %{py_sitedir}/%{module}/ccache.so
 %attr(755,root,root) %{py_sitedir}/%{module}/util/cdistance.so
