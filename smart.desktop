@@ -10,6 +10,6 @@ Icon=smart
 Type=Application
 Terminal=false
 StartupNotify=true
-Categories=PackageManager;GTK;System;
+Categories=PackageManager;GTK;Settings;
 NotShowIn=KDE;
 # vi:encoding=utf-8
