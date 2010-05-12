@@ -6,7 +6,7 @@ diff -urN smart-0.50/contrib/ksmarttray/admin/cvs.sh smart-0.50.new/contrib/ksma
      exit 1
      ;;
 -  automake*1.6.* | automake*1.7* | automake*1.8.* | automake*1.9* ) : ;;
-+  automake*1.6.* | automake*1.7* | automake*1.8.* | automake*1.9* | automake*1.10* ) : ;;
++  automake*1.6.* | automake*1.7* | automake*1.8.* | automake*1.9* | automake*1.10* | automake*1.11* ) : ;;
    "" )
      echo "*** AUTOMAKE NOT FOUND!."
      echo "*** KDE requires automake 1.6.1 or newer"

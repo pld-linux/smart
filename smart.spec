@@ -3,14 +3,14 @@
 #  - pexpect-0.999 http://pexpect.sourceforge.net/
 #
 # Conditional build:
-%bcond_without	kde	# without KDE support (not needed for GNOME)
+%bcond_with	kde	# with KDE support (not needed for GNOME)
 #
 %define	module smart
 Summary:	Next generation package handling tool
 Summary(pl.UTF-8):	Narzędzie do obsługi pakietów nowej generacji
 Name:		smart
 Version:	0.52
-Release:	4
+Release:	5
 License:	GPL
 Group:		Applications/System
 Source0:	http://labix.org/download/smart/%{name}-%{version}.tar.bz2
