@@ -25,11 +25,12 @@ Patch3:		%{name}-am110.patch
 Patch4:		%{name}-missingok.patch
 Patch5:		%{name}-pycurl-segfaults.patch
 URL:		http://labix.org/smart/
-%if %{with kde}
-BuildRequires:	kdelibs-devel
-%endif
+BuildRequires:	gettext-devel
+%{?with_kde:BuildRequires:	kdelibs-devel}
 BuildRequires:	libstdc++-devel
 BuildRequires:	python-devel >= 1:2.3
+BuildRequires:	python-modules
+BuildRequires:	rpm-pythonprov
 BuildRequires:	sed >= 4.0
 Requires:	python-cElementTree
 Requires:	python-elementtree
