@@ -9,14 +9,3 @@
  from smart import Error, _
  import textwrap
  import sys, os
---- smart-0.51/setup.py~	2006-11-20 15:49:51.000000000 +0100
-+++ smart-0.51/setup.py	2007-07-30 18:58:28.840510700 +0200
-@@ -56,7 +56,7 @@
- distutils.file_util.copy_file = copy_file
- distutils.dir_util.copy_tree = copy_tree
- 
--PYTHONLIB = os.path.join(get_python_lib(standard_lib=1, prefix=""),
-+PYTHONLIB = os.path.join(get_python_lib(standard_lib=1, plat_specific=1, prefix=""),
-                          "site-packages")
- 
- config_h = sysconfig.get_config_h_filename()

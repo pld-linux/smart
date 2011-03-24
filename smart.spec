@@ -4,24 +4,23 @@
 #
 # Conditional build:
 %bcond_with	kde	# with KDE support (not needed for GNOME)
-#
+
 %define	module smart
 Summary:	Next generation package handling tool
 Summary(pl.UTF-8):	Narzędzie do obsługi pakietów nowej generacji
 Name:		smart
-Version:	0.52
-Release:	7
-License:	GPL
+Version:	1.3.1
+Release:	0.2
+License:	GPL v2+
 Group:		Applications/System
-Source0:	http://labix.org/download/smart/%{name}-%{version}.tar.bz2
-# Source0-md5:	f1681adedd18b86f679a53ad8361c9e9
+Source0:	http://launchpad.net/smart/trunk/%{version}/+download/%{name}-%{version}.tar.bz2
+# Source0-md5:	678c22b4374dd3d732395df5250e6d42
 Source1:	%{name}-distro.py
 Source2:	%{name}.desktop
 Source3:	%{name}-kde.desktop
 Patch0:		%{name}-syslibs.patch
 Patch1:		%{name}-pyc.patch
 Patch2:		%{name}-archscore.patch
-Patch3:		%{name}-am110.patch
 Patch4:		%{name}-missingok.patch
 Patch5:		%{name}-pycurl-segfaults.patch
 URL:		http://labix.org/smart/
@@ -96,16 +95,15 @@ Manager.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 %patch4 -p1
-%patch5 -p0
+#%patch5 -p0
 
 # %{_libdir} is hardcoded
 %{__sed} -i -e's,/usr/lib/,%{_libdir}/,' smart/const.py
 
-rm -rf smart/util/elementtree
-rm -rf smart/util/celementtree
-rm -f smart/util/optparse.py
+rm -r smart/util/elementtree
+rm -r smart/util/celementtree
+rm smart/util/optparse.py
 
 %build
 export CFLAGS="%{rpmcflags}"
@@ -194,28 +192,16 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/interfaces/*.py[co]
 %dir %{py_sitedir}/%{module}/interfaces/images
 %{py_sitedir}/%{module}/interfaces/images/*.py[co]
-%{py_sitedir}/%{module}/interfaces/images/folder.png
-%{py_sitedir}/%{module}/interfaces/images/package-available-locked.png
-%{py_sitedir}/%{module}/interfaces/images/package-available.png
-%{py_sitedir}/%{module}/interfaces/images/package-broken.png
-%{py_sitedir}/%{module}/interfaces/images/package-downgrade.png
-%{py_sitedir}/%{module}/interfaces/images/package-install.png
-%{py_sitedir}/%{module}/interfaces/images/package-installed-locked.png
-%{py_sitedir}/%{module}/interfaces/images/package-installed-outdated.png
-%{py_sitedir}/%{module}/interfaces/images/package-installed.png
-%{py_sitedir}/%{module}/interfaces/images/package-new-locked.png
-%{py_sitedir}/%{module}/interfaces/images/package-new.png
-%{py_sitedir}/%{module}/interfaces/images/package-purge.png
-%{py_sitedir}/%{module}/interfaces/images/package-reinstall.png
-%{py_sitedir}/%{module}/interfaces/images/package-remove.png
-%{py_sitedir}/%{module}/interfaces/images/package-upgrade.png
-%{py_sitedir}/%{module}/interfaces/images/smart.png
+%{py_sitedir}/%{module}/interfaces/images/*.png
 %dir %{py_sitedir}/%{module}/interfaces/text
 %{py_sitedir}/%{module}/interfaces/text/*.py[co]
 %dir %{py_sitedir}/%{module}/plugins
 %{py_sitedir}/%{module}/plugins/*.py[co]
 %dir %{py_sitedir}/%{module}/util
 %{py_sitedir}/%{module}/util/*.py[co]
+%if "%{py_ver}" > "2.4"
+%{py_sitedir}/smart-%{version}-*.egg-info
+%endif
 
 %files update
 %defattr(644,root,root,755)
@@ -225,11 +211,16 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %dir %{py_sitedir}/%{module}/interfaces/gtk
 %{py_sitedir}/%{module}/interfaces/gtk/*.py[co]
+%dir %{py_sitedir}/%{module}/interfaces/qt
+%{py_sitedir}/%{module}/interfaces/qt/*.py[co]
 %{_desktopdir}/smart.desktop
 %if %{with kde}
 %{_desktopdir}/smart-kde.desktop
 %endif
 %{_pixmapsdir}/smart.png
+
+%dir %{py_sitedir}/%{module}/backends/arch
+%{py_sitedir}/%{module}/backends/arch/*.py[co]
 
 %if %{with kde}
 %files -n ksmarttray
