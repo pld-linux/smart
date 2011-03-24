@@ -3,7 +3,7 @@
 #  - pexpect-0.999 http://pexpect.sourceforge.net/
 #
 # Conditional build:
-%bcond_with	kde	# with KDE support (not needed for GNOME)
+%bcond_with	ksmarttray	# build ksmarttray (KDE3)
 
 %define	module smart
 Summary:	Next generation package handling tool
@@ -106,15 +106,17 @@ rm -r smart/util/celementtree
 rm smart/util/optparse.py
 
 %build
-export CFLAGS="%{rpmcflags}"
-python setup.py build
+# CC/CFLAGS is only for arch packages - remove on noarch packages
+CC="%{__cc}" \
+CFLAGS="%{rpmcflags}" \
+%{__python} setup.py build
 
 # smart-update
 %{__make} -C contrib/smart-update \
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags}"
 
-%if %{with kde}
+%if %{with ksmarttray}
 # ksmarttray
 cd contrib/ksmarttray
 %{__make} -f admin/Makefile.common
@@ -131,19 +133,22 @@ cd contrib/ksmarttray
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},%{_libdir}/smart,/var/lib/smart/{channels,packages}}
-python setup.py install -O1 --root=$RPM_BUILD_ROOT
+%{__python} setup.py install \
+	--skip-build \
+	--optimize=2 \
+	--root=$RPM_BUILD_ROOT
 
 cp -f contrib/smart-update/smart-update $RPM_BUILD_ROOT%{_bindir}
-install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
+cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}/%{name}.desktop
+cp -p %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}/%{name}-kde.desktop
 install -p smart/interfaces/images/smart.png $RPM_BUILD_ROOT%{_pixmapsdir}/smart.png
 # Currently needs to hardcode %{_libdir}, as this is hardcoded in the
 # code, too.
 install -p %{SOURCE1} $RPM_BUILD_ROOT%{_libdir}/smart/distro.py
 
-%if %{with kde}
+%if %{with ksmarttray}
 %{__make} -C contrib/ksmarttray install \
 	DESTDIR=$RPM_BUILD_ROOT
-install %{SOURCE3} $RPM_BUILD_ROOT%{_desktopdir}/%{name}-kde.desktop
 %endif
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{es_ES,es}
