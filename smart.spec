@@ -214,9 +214,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{module}/interfaces/qt
 %{py_sitedir}/%{module}/interfaces/qt/*.py[co]
 %{_desktopdir}/smart.desktop
-%if %{with kde}
 %{_desktopdir}/smart-kde.desktop
-%endif
 %{_pixmapsdir}/smart.png
 
 %dir %{py_sitedir}/%{module}/backends/arch
