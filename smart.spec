@@ -65,6 +65,7 @@ Summary:	Graphical user interface for the Smart Package Manager
 Summary(pl.UTF-8):	Graficzny interfejs użytkownika do zarządcy pakietów Smart
 Group:		Applications/System
 Requires:	%{name} = %{version}-%{release}
+Requires:	gksu
 Requires:	python-pygtk-gtk
 
 %description gui
