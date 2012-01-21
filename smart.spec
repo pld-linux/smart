@@ -9,18 +9,17 @@
 Summary:	Next generation package handling tool
 Summary(pl.UTF-8):	Narzędzie do obsługi pakietów nowej generacji
 Name:		smart
-Version:	1.3.1
+Version:	1.4.1
 Release:	0.2
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://launchpad.net/smart/trunk/%{version}/+download/%{name}-%{version}.tar.bz2
-# Source0-md5:	678c22b4374dd3d732395df5250e6d42
+# Source0-md5:	573ef32ba177a6b3c4bf7ef04873fcb6
 Source1:	%{name}-distro.py
 Source2:	%{name}.desktop
 Source3:	%{name}-kde.desktop
 Patch0:		%{name}-syslibs.patch
 Patch1:		%{name}-pyc.patch
-Patch2:		%{name}-archscore.patch
 Patch4:		%{name}-missingok.patch
 Patch5:		%{name}-pycurl-segfaults.patch
 URL:		http://labix.org/smart/
@@ -95,7 +94,6 @@ Manager.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 %patch4 -p1
 #%patch5 -p0
 
@@ -177,6 +175,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/%{module}/ccache.so
 %attr(755,root,root) %{py_sitedir}/%{module}/util/cdistance.so
 %attr(755,root,root) %{py_sitedir}/%{module}/util/ctagfile.so
+%attr(755,root,root) %{py_sitedir}/%{module}/backends/deb/_base.so
 %attr(755,root,root) %{py_sitedir}/%{module}/backends/deb/cdebver.so
 %attr(755,root,root) %{py_sitedir}/%{module}/backends/rpm/crpmver.so
 
@@ -219,6 +218,8 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/interfaces/gtk/*.py[co]
 %dir %{py_sitedir}/%{module}/interfaces/qt
 %{py_sitedir}/%{module}/interfaces/qt/*.py[co]
+%dir %{py_sitedir}/%{module}/interfaces/qt4
+%{py_sitedir}/%{module}/interfaces/qt4/*.py[co]
 %{_desktopdir}/smart.desktop
 %{_desktopdir}/smart-kde.desktop
 %{_pixmapsdir}/smart.png
