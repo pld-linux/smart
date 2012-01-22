@@ -159,6 +159,7 @@ install -p %{SOURCE1} $RPM_BUILD_ROOT%{_libdir}/smart/distro.py
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
+%define	_pld_multilib_conf %{nil}
 %ifarch i486 i686 ppc sparc alpha athlon
 	%define		_ftp_arch	%{_target_cpu}
 %endif
