@@ -10,7 +10,7 @@ Summary:	Next generation package handling tool
 Summary(pl.UTF-8):	Narzędzie do obsługi pakietów nowej generacji
 Name:		smart
 Version:	1.4.1
-Release:	0.2
+Release:	1
 License:	GPL v2+
 Group:		Applications/System
 Source0:	http://launchpad.net/smart/trunk/%{version}/+download/%{name}-%{version}.tar.bz2
@@ -18,6 +18,12 @@ Source0:	http://launchpad.net/smart/trunk/%{version}/+download/%{name}-%{version
 Source1:	%{name}-distro.py
 Source2:	%{name}.desktop
 Source3:	%{name}-kde.desktop
+Source4:	th.channel
+Source5:	th-archive.channel
+Source6:	th-multilib.channel
+Source7:	th-obsolete.channel
+Source8:	th-ready.channel
+Source9:	th-test.channel
 Patch0:		%{name}-syslibs.patch
 Patch1:		%{name}-pyc.patch
 Patch4:		%{name}-missingok.patch
@@ -131,7 +137,10 @@ cd contrib/ksmarttray
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},%{_libdir}/smart,/var/lib/smart/{channels,packages}}
+install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},%{_libdir}/smart} \
+	$RPM_BUILD_ROOT/var/lib/smart/{channels,packages} \
+	$RPM_BUILD_ROOT/etc/smart/channels
+
 %{__python} setup.py install \
 	--skip-build \
 	--optimize=2 \
@@ -150,6 +159,25 @@ install -p %{SOURCE1} $RPM_BUILD_ROOT%{_libdir}/smart/distro.py
 	DESTDIR=$RPM_BUILD_ROOT
 %endif
 
+%ifarch i486 i686 ppc sparc alpha athlon
+	%define		_ftp_arch	%{_target_cpu}
+%endif
+%ifarch %{x8664}
+	%define		_ftp_arch	x86_64
+	%define		_pld_multilib_conf %{SOURCE6}
+%endif
+%ifarch i586
+	%define		_ftp_arch	i486
+%endif
+%ifarch pentium2 pentium3 pentium4
+	%define		_ftp_arch	i686
+%endif
+
+for f in %{SOURCE4} %{SOURCE5} %{SOURCE7} %{SOURCE8} %{SOURCE9} %{_pld_multilib_conf}; do
+	ff=$(basename $f)
+	%{__sed} -e 's|%%ARCH%%|%{_ftp_arch}|g' $f >$RPM_BUILD_ROOT/etc/smart/channels/$ff
+done
+
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{es_ES,es}
 
 touch $RPM_BUILD_ROOT/var/lib/smart/packages/{cache,config}
@@ -163,6 +191,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc HACKING README LICENSE TODO IDEAS
+%dir /etc/smart/channels
+%attr(644,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/smart/channels/th*.channel
 %attr(755,root,root) %{_bindir}/smart
 %{_mandir}/man8/smart.8*
 %{_libdir}/smart

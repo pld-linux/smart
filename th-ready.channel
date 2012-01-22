@@ -1,0 +1,23 @@
+[th-ready]
+name = PLD Linux 3.0 (Th) - %ARCH%: ready (testing stage before moved to main)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/ready/%ARCH%/RPMS/
+type = rpm-md
+disabled=yes
+
+[th-ready-noarch]
+name = PLD Linux 3.0 (Th) - noarch: ready (testing stage before moved to main)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/ready/noarch/RPMS/
+type = rpm-md
+disabled=yes
+
+[th-ready-debuginfo]
+name = PLD Linux 3.0 (Th) - %ARCH% - debuginfo: ready (testing stage before moved to main)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/ready/%ARCH%/debuginfo/
+type = rpm-md
+disabled=yes
+
+[th-ready-source]
+name = PLD Linux 3.0 (Th) - SRPMS: ready (testing stage before moved to main)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/ready/SRPMS/RPMS
+type = rpm-md
+disabled=yes

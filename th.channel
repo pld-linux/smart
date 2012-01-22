@@ -1,0 +1,21 @@
+[th]
+name = PLD Linux 3.0 (Th) - %ARCH%
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/PLD/%ARCH%/RPMS/
+type = rpm-md
+
+[th-noarch]
+name = PLD Linux 3.0 (Th) - %ARCH%
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/PLD/noarch/RPMS/
+type = rpm-md
+
+[th-debuginfo]
+name = PLD Linux 3.0 (Th) - %ARCH%
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/PLD/%ARCH%/debuginfo/
+type = rpm-md
+disabled=yes
+
+[th-source]
+name = PLD Linux 3.0 (Th) - %ARCH%
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/PLD/SRPMS/
+type = rpm-md
+disabled=yes

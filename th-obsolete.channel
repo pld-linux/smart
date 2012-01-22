@@ -1,0 +1,23 @@
+[th-obsolete]
+name = PLD Linux 3.0 (Th) - %ARCH%: obsolete (kde3, ...)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/obsolete/%ARCH%/RPMS/
+type = rpm-md
+disabled=yes
+
+[th-obsolete-noarch]
+name = PLD Linux 3.0 (Th) - noarch: obsolete (kde3, ...)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/obsolete/noarch/RPMS/
+type = rpm-md
+disabled=yes
+
+[th-obsolete-debuginfo]
+name = PLD Linux 3.0 (Th) - %ARCH% - debuginfo: obsolete (kde3, ...)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/obsolete/%ARCH%/debuginfo/
+type = rpm-md
+disabled=yes
+
+[th-obsolete-source]
+name = PLD Linux 3.0 (Th) - SRPMS: obsolete (kde3, ...)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/obsolete/SRPMS/RPMS
+type = rpm-md
+disabled=yes

@@ -1,0 +1,47 @@
+[th-i686]
+name = PLD Linux 3.0 (Th) - i686
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/PLD/i686/RPMS/
+type = rpm-md
+disabled=yes
+
+[th-i686-ready]
+name = PLD Linux 3.0 (Th) - i686: ready (testing stage before moved to main)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/ready/i686/RPMS/
+type = rpm-md
+disabled=yes
+
+[th-i686-test]
+name = PLD Linux 3.0 (Th) - i686: test (built packages to be moved to ready)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/test/i686/RPMS/
+type = rpm-md
+disabled=yes
+
+[th-i686-obsolete]
+name = PLD Linux 3.0 (Th) - i686: obsolete (kde3,...)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/test/i686/RPMS/
+type = rpm-md
+disabled=yes
+
+[th-i686-idebuginfo]
+name = PLD Linux 3.0 (Th) - i686 - debuginfo
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/PLD/i686/debuginfo/
+type = rpm-md
+disabled=yes
+
+[th-i686-ready-debuginfo]
+name = PLD Linux 3.0 (Th) - i686 - debuginfo: ready (testing stage before moved to main)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/ready/i686/debuginfo/
+type = rpm-md
+disabled=yes
+
+[th-i686-test-debuginfo]
+name = PLD Linux 3.0 (Th) - i686 - debuginfo: test (built packages to be moved to ready)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/test/i686/debuginfo/
+type = rpm-md
+disabled=yes
+
+[th-i686-obsolete-debuginfo]
+name = PLD Linux 3.0 (Th) - i686 - debuginfo: obsolete (kde3,...)
+baseurl = ftp://ftp.th.pld-linux.org/dists/th/obsolete/i686/debuginfo/
+type = rpm-md
+disabled=yes
