@@ -29,7 +29,7 @@ Patch1:		%{name}-pyc.patch
 Patch4:		%{name}-missingok.patch
 Patch5:		%{name}-pycurl-segfaults.patch
 URL:		http://labix.org/smart/
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 %{?with_kde:BuildRequires:	kdelibs-devel}
 BuildRequires:	libstdc++-devel
 BuildRequires:	python-devel >= 1:2.3
